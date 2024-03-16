@@ -12,6 +12,11 @@ public class MusicNote : MonoBehaviour
     void Update()
     {
         transform.Translate(-Vector3.forward * Time.deltaTime * noteSpeed);
-        if (transform.position.z < bottomBound) Destroy(gameObject);
+
+        if (transform.position.z < bottomBound)
+        {
+            ScoreCounter.Instance.ResetScore();
+            Destroy(gameObject);
+        }
     }
 }
