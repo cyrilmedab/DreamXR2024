@@ -6,6 +6,7 @@ using UnityEngine;
 public class ZoneEffects : MonoBehaviour
 {
     private AudioSource _zoneSound;
+    private bool _playerInZone;
 
     private void Awake()
     {
@@ -24,7 +25,26 @@ public class ZoneEffects : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        PlayAllZoneEffects();
-        Debug.Log("Collision");
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            _playerInZone = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            _playerInZone = false;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Note") && _playerInZone)
+        {
+            Destroy(other.gameObject);
+            PlayAllZoneEffects();
+        }
     }
 }
