@@ -44,6 +44,7 @@ public class ZoneEffects : MonoBehaviour
         if (other.gameObject.CompareTag("Note") && _playerInZone)
         {
             Destroy(other.gameObject);
+            ScoreCounter.Instance.IncreaseScore();
             PlayAllZoneEffects();
         }
     }
